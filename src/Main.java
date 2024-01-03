@@ -25,7 +25,7 @@ public class Main {
 
             ss.commit();
             ss.close();
-
+//use for video
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
