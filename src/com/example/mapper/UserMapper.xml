@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap id="userResult" type="com.example.po.User">
+        <id property="user_id" column="uid"/>
+        <result property="user_name" column="uname"/>
+        <result property="user_password" column="upassword"/>
+        <result property="user_permission" column="upermission"/>
+    </resultMap>
+
+    <parameterMap id="userParam" type="com.example.po.User">
+        <parameter property="user_id" resultMap="userResult"/>
+        <parameter property="user_name" resultMap="userResult"/>
+        <parameter property="user_password" resultMap="userResult"/>
+        <parameter property="user_permission" resultMap="userResult"/>
+    </parameterMap>
+
+
+    <!--查找-->
+    <select id="selectUser" resultMap="userResult">
+        select * from user where uname=#{user_name}
+    </select>
+
+    <!--增加-->
+    <insert id="addUser" parameterMap="userParam">
+        INSERT into user (uname,upassword) values(#{user_name},#{user_password})
+    </insert>
+
+    <!--删除-->
+    <delete id="deleteUser" parameterMap="userParam">
+        delete from user where uid=#{user_id}
+    </delete>
+    <!--修改-->
+    <update id="updateUser" parameterMap="userParam">
+        update user set umame=#{user_name},upassword=#{user_password} where uid=#{user_id}
+    </update>
+
+    <!--设置权限-->
+    <update id="updateUserPermission" parameterMap="userParam">
+        update  user set upermission=#{user_permission} where uid=#{user_id}
+    </update>
+</mapper>

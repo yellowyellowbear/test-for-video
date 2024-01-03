@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.FileMapper">
+
+    <resultMap id="fileResult" type="com.example.po.Filee">
+        <id property="file_id" column="fid"/>
+        <result property="file_name" column="fname"/>
+        <result property="file_url" column="furl"/>
+        <result property="file_time" column="ftime"/>
+        <result property="file_describe" column="fdescribe"/>
+        <result property="bucket_id" column="bid"/>
+    </resultMap>
+
+    <parameterMap id="fileParam" type="com.example.po.Filee">
+        <parameter property="file_id" resultMap="fileResult"/>
+        <parameter property="file_name" resultMap="fileResult"/>
+        <parameter property="file_url" resultMap="fileResult"/>
+        <parameter property="file_time" resultMap="fileResult"/>
+        <parameter property="file_describe" resultMap="fileResult"/>
+        <parameter property="bucket_id" resultMap="fileResult"/>
+    </parameterMap>
+
+    <!--查找-->
+    <select id="selectFile" resultMap="fileResult">
+        select * from file where fname=#{file_name}
+    </select>
+
+    <select id="selectID" resultMap="fileResult">
+        select * from file where bid=#{bucket_id}
+    </select>
+
+    <!--上传-->
+    <insert id="addFile" parameterMap="fileParam">
+        INSERT into file (fname, furl, ftime, fdescribe,bid) values (#{file_name},#{file_url},#{file_time},#{file_describe},1)
+    </insert>
+
+    <!--修改-->
+    <update id="updateFile" parameterMap="fileParam">
+
+    </update>
+
+    <!--删除-->
+    <delete id="deleteFile" parameterMap="fileParam">
+        delete from file where fid=#{file_id}
+    </delete>
+</mapper>

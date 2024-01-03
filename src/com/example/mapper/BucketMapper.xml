@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BucketMapper">
+
+    <resultMap id="bucketResult" type="com.example.po.Bucket">
+        <id property="bucket_id" column="bid"/>
+        <result property="bucket_name" column="bname"/>
+        <result property="bucket_time" column="btime"/>
+        <result property="user_id" column="uid"/>
+    </resultMap>
+
+    <parameterMap id="bucketParam" type="com.example.po.Bucket">
+        <parameter property="bucket_id" resultMap="bucketResult"/>
+        <parameter property="bucket_name" resultMap="bucketResult"/>
+        <parameter property="bucket_time" resultMap="bucketResult"/>
+        <parameter property="user_id" resultMap="bucketResult"/>
+    </parameterMap>
+
+    <!--获得所有桶-->
+    <select id="getAll" resultMap="bucketResult">
+        select * from bucket
+    </select>
+
+    <!--get 查找获得-->
+    <select id="getBucket" resultMap="bucketResult">
+        select * from bucket where bname=#{bucket_name}
+    </select>
+
+    <!--put 添加数据-->
+
+    <!--creat 创建桶-->
+    <insert id="createBucket" parameterMap="bucketParam">
+        INSERT into bucket (bname,btime,uid) values(#{bucket_name},#{bucket_time},#{user_id})
+    </insert>
+
+    <!--delete 删除桶-->
+    <delete id="deleteBucket" parameterMap="bucketParam">
+        delete from bucket where bname=#{bucket_name}
+    </delete>
+
+</mapper>
